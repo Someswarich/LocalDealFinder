@@ -1,4 +1,4 @@
-import { getDeals } from './storage.js';
+import { getDeals } from './storage';
 
 const grid = document.getElementById('dealsGrid');
 const search = document.getElementById('search');
