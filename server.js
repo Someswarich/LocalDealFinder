@@ -7,16 +7,18 @@ import { fileURLToPath } from "url";
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// Get current directory (ESM fix)
+// ✅ Fix for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Middleware
+// ✅ Middleware
 app.use(cors());
 app.use(express.json());
+
+// ✅ Serve static files from 'public' folder
 app.use(express.static(path.join(__dirname, "public")));
 
-// Path to db.json
+// ✅ Path to db.json
 const dbPath = path.join(__dirname, "db.json");
 
 // ✅ GET all deals
@@ -45,16 +47,17 @@ app.post("/deals", (req, res) => {
   }
 });
 
-// ✅ Serve db.json (for testing)
+// ✅ Serve db.json (for debugging)
 app.get("/db", (req, res) => {
   res.sendFile(dbPath);
 });
 
-// ✅ Root route (index.html)
-app.get("/", (req, res) => {
+// ✅ Catch-all route for any other path (important for Render!)
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
+// ✅ Start the server
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
