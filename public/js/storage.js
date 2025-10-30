@@ -1,6 +1,7 @@
 // NearNab storage helper - JSON Server first, localStorage fallback
 const STORAGE_KEY = 'nearnab_deals_cache';
-const JSON_URL = 'http://localhost:3000/deals';
+const JSON_URL = "https://localdealfinder.onrender.com/api/deals"
+
 
 export async function getDeals() {
   // Always try server first

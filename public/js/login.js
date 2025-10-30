@@ -70,7 +70,7 @@ loginFormEl.addEventListener("submit", async (e) => {
   if (valid) {
     // Optional: Check from JSON Server
     try {
-      const res = await fetch("http://localhost:3000/users");
+      const res = await fetch("https://localdealfinder.onrender.com/api/users");
       const users = await res.json();
       const user = users.find(u => u.email === email && u.password === password);
 
