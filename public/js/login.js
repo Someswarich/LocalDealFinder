@@ -120,7 +120,7 @@ signupFormEl.addEventListener("submit", async (e) => {
   if (valid) {
     // Optional: Save new user to JSON Server
     try {
-      const response = await fetch("http://localhost:3000/users", {
+      const response = await fetch("https://localdealfinder.onrender.com/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
