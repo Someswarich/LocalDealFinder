@@ -1,22 +1,60 @@
-const express = require("express");
-const path = require("path");
+import express from "express";
+import fs from "fs";
+import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+
 const app = express();
+const PORT = process.env.PORT || 10000;
 
-const port = process.env.PORT || 10000;
+// Get current directory (ESM fix)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Serve static files from the "public" folder
+// Middleware
+app.use(cors());
+app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-// Optional: serve db.json or APIs if needed
-app.get("/api/deals", (req, res) => {
-  res.sendFile(path.join(__dirname, "db.json"));
+// Path to db.json
+const dbPath = path.join(__dirname, "db.json");
+
+// ✅ GET all deals
+app.get("/deals", (req, res) => {
+  try {
+    const data = JSON.parse(fs.readFileSync(dbPath, "utf8"));
+    res.json(data.deals || []);
+  } catch (err) {
+    console.error("Error reading db.json:", err);
+    res.status(500).json({ error: "Failed to load deals" });
+  }
 });
 
-// Fallback route
-app.get("*", (req, res) => {
+// ✅ POST a new deal
+app.post("/deals", (req, res) => {
+  try {
+    const newDeal = req.body;
+    const data = JSON.parse(fs.readFileSync(dbPath, "utf8"));
+    data.deals = data.deals || [];
+    data.deals.push(newDeal);
+    fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
+    res.status(201).json(newDeal);
+  } catch (err) {
+    console.error("Error writing to db.json:", err);
+    res.status(500).json({ error: "Failed to save deal" });
+  }
+});
+
+// ✅ Serve db.json (for testing)
+app.get("/db", (req, res) => {
+  res.sendFile(dbPath);
+});
+
+// ✅ Root route (index.html)
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-app.listen(port, "0.0.0.0", () => {
-  console.log(`✅ Server running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
 });
