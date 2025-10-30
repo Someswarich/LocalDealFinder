@@ -6,20 +6,18 @@ const BASE_URL = window.location.hostname.includes('localhost')
   ? "http://localhost:10000"
   : "https://localdealfinder.onrender.com";
 
-const DB_URL = `${BASE_URL}/db`;
 const DEALS_URL = `${BASE_URL}/deals`;
 
 /**
- * Fetch all deals from JSON server or cache
+ * Fetch all deals from server or cache
  */
 export async function getDeals() {
   try {
-    const res = await fetch(DB_URL, { cache: 'no-store' });
+    const res = await fetch(DEALS_URL, { cache: 'no-store' });
     if (!res.ok) throw new Error('Server not OK');
     const data = await res.json();
-    const deals = data.deals || [];
+    const deals = Array.isArray(data) ? data : data.deals || [];
 
-    // Cache for offline fallback
     localStorage.setItem(STORAGE_KEY, JSON.stringify(deals));
     return deals;
   } catch (err) {
@@ -35,7 +33,7 @@ export async function getDeals() {
 export async function postDeal(deal) {
   const payload = {
     ...deal,
-    id: deal.id || Date.now(),
+    id: deal.id || Date.now().toString(),
     createdAt: deal.createdAt || new Date().toISOString(),
   };
 

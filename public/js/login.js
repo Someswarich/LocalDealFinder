@@ -1,4 +1,4 @@
-      // LOGIN & SIGNUP SLIDER EFFECT
+// LOGIN & SIGNUP SLIDER EFFECT
 const loginText = document.querySelector(".title-text .login");
 const loginForm = document.querySelector("form.login");
 const loginBtn = document.querySelector("label.login");
@@ -18,11 +18,11 @@ signupLink.onclick = () => {
   return false;
 };
 
-// VALIDATION LOGIC
+// Validation logic
 const loginFormEl = document.querySelector("form.login");
 const signupFormEl = document.querySelector("form.signup");
 
-// ✅ Helper function for showing error messages
+// Helper: Show & clear errors
 function showError(input, message) {
   let error = input.parentElement.querySelector(".error-message");
   if (!error) {
@@ -40,19 +40,23 @@ function clearError(input) {
   input.style.borderColor = "#ccc";
 }
 
-// ✅ Email validation regex
+// Email regex
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// ✅ LOGIN FORM VALIDATION
+// Auto detect environment
+const BASE_URL = window.location.hostname.includes("localhost")
+  ? "http://localhost:10000"
+  : "https://localdealfinder.onrender.com";
+
+// ✅ LOGIN FORM
 loginFormEl.addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = loginFormEl.querySelector('input[type="text"]').value.trim();
   const password = loginFormEl.querySelector('input[type="password"]').value.trim();
 
   let valid = true;
-
   if (!isValidEmail(email)) {
     showError(loginFormEl.querySelector('input[type="text"]'), "Invalid email format");
     valid = false;
@@ -68,26 +72,27 @@ loginFormEl.addEventListener("submit", async (e) => {
   }
 
   if (valid) {
-    // Optional: Check from JSON Server
     try {
-      const res = await fetch("https://localdealfinder.onrender.com/api/users");
-      const users = await res.json();
-      const user = users.find(u => u.email === email && u.password === password);
+      const res = await fetch(`${BASE_URL}/db`);
+      const data = await res.json();
+      const users = data.users || [];
+      const user = users.find((u) => u.email === email && u.password === password);
 
       if (user) {
-        alert("Login successful! Redirecting...");
+        alert("✅ Login successful! Redirecting...");
         localStorage.setItem("loggedInUser", JSON.stringify(user));
-    window.location.href = "Deals.html";
+        window.location.href = "deals.html";
       } else {
         alert("Invalid email or password.");
       }
     } catch (err) {
-      console.error("Error connecting to server:", err);
+      console.error("Error:", err);
+      alert("Server not reachable.");
     }
   }
 });
 
-// ✅ SIGNUP FORM VALIDATION
+// ✅ SIGNUP FORM
 signupFormEl.addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = signupFormEl.querySelector('input[placeholder="Email Address"]').value.trim();
@@ -118,23 +123,30 @@ signupFormEl.addEventListener("submit", async (e) => {
   }
 
   if (valid) {
-    // Optional: Save new user to JSON Server
     try {
-      const response = await fetch("https://localdealfinder.onrender.com/api/users", {
+      const res = await fetch(`${BASE_URL}/db`);
+      const data = await res.json();
+      const users = data.users || [];
+      if (users.some((u) => u.email === email)) {
+        alert("User already exists!");
+        return;
+      }
+
+      const response = await fetch(`${BASE_URL}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
       if (response.ok) {
-        alert("Signup successful! You can login now.");
+        alert("Signup successful! You can now login.");
         loginBtn.click();
       } else {
         alert("Error during signup. Try again.");
       }
     } catch (err) {
       console.error("Error saving user:", err);
+      alert("Server error. Try again later.");
     }
   }
 });
-

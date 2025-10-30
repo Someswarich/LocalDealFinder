@@ -265,6 +265,7 @@ form .btn .btn-layer{
   height: 100%;
   width: 300%;
   position: absolute;
+  pointer-events: none;
   left: -100%;
   background: -webkit-linear-gradient(right,#003366,#004080,#0059b3
 , #0073e6);
@@ -287,4 +288,27 @@ form .btn input[type="submit"]{
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
+}
+/* Fix for button clickability */
+.field.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+
+.field.btn input[type="submit"] {
+  position: relative;
+  z-index: 2; /* Make the button clickable */
+  cursor: pointer;
+  background: none;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+
+/* Optional small fix for error messages */
+.error-message {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
 }
