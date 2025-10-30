@@ -1,0 +1,151 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #e3f2fd, #bbdefb);
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  background-color: #1E88E5;
+  height: 60px;
+  color: #fff;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.logo .near {
+  color: #fff;
+}
+
+.logo .nab {
+  color: #FFD700;
+}
+
+.nav-child {
+  display: flex;
+  gap: 30px;
+  font-size: 1.1rem;
+}
+
+.nav-child a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-child a:hover {
+  color: #FFD700;
+}
+
+/* Form Section */
+.form-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+
+h1 {
+  color: #1E88E5;
+  margin-bottom: 25px;
+  font-size: 2rem;
+}
+
+/* Form Container */
+#post-deal-form {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Input & Textarea */
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+input, textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #1E88E5;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1E88E5;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #1565C0;
+  transform: scale(1.02);
+}
+
+/* Messages */
+.error {
+  color: #d32f2f;
+  font-size: 0.9rem;
+  height: 18px;
+}
+
+#success-message {
+  text-align: center;
+  color: #388e3c;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.back-link {
+  text-decoration: none;
+  color: #1E88E5;
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}

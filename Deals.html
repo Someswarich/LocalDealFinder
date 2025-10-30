@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deals • NearNab</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/deals.css"/>
+</head>
+<body>
+  <nav class="nav-container">
+    <div class="logo"><span class="near">Near</span><span class="nab">Nab</span></div>
+    <div class="nav-child">
+      <a href="index.html">Home</a>
+      <a href="Deals.html">Deals</a>
+      <a href="post_deal.html">Post Deal</a>
+      <a href="Login.html">Login</a>
+    </div>
+  </nav>
+
+  <main class="deals-page">
+    <h1>All Deals</h1>
+    <div class="filters">
+      <input id="search" placeholder="Search deals..." />
+      <select id="sort">
+        <option value="new">Newest</option>
+        <option value="low">Price: Low to High</option>
+        <option value="high">Price: High to Low</option>
+      </select>
+    </div>
+    <div class="deal-grid" id="dealsGrid"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 NearNab. All rights reserved.</p>
+  </footer>
+
+  <script type="module" src="js/deals_page.js"></script>
+
+<script>
+let sliderCounter = 1;
+setInterval(() => {
+  sliderCounter++;
+  if(sliderCounter > 3) sliderCounter = 1;
+  document.getElementById('radio' + sliderCounter).checked = true;
+}, 5000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NearNab</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/home.css"/>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="nav-container">
+    <div class="logo">
+      <span class="near">Near</span><span class="nab">Nab</span>
+    </div>
+    <div class="nav-child">
+      <a href="index.html">Home</a>
+      <a href="Deals.html">Deals</a>
+      <a href="post_deal.html">Post Deal</a>
+      <a href="Login.html">Login</a>
+    </div>
+  </nav>
+
+  <!-- Hero Slider -->
+  <section class="hero-slider">
+    <div class="slider-track" id="slider-track">
+      <!-- slides injected by home.js -->
+    </div>
+    <button class="nav-btn prev" id="prevSlide">❮</button>
+    <button class="nav-btn next" id="nextSlide">❯</button>
+    <div class="dots" id="dots"></div>
+  </section>
+
+  <!-- Deals on Home -->
+  <section class="home-deals">
+    <div class="section-head">
+      <h2>Deals Near You</h2>
+      <a class="view-all" href="Deals.html">View all</a>
+    </div>
+    <div class="grid" id="homeDealsGrid">
+      <!-- cards injected -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 NearNab. All rights reserved.</p>
+  </footer>
+
+  <script type="module" src="js/home.js"></script>
+</body>
+</html>

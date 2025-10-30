@@ -1,0 +1,43 @@
+.deals-page{ max-width:1200px; margin:1rem auto; padding:0 1rem; }
+.deals-page h1{ margin:.2rem 0 1rem; }
+.filters{ display:flex; gap:.6rem; margin-bottom:1rem; }
+.filters input, .filters select{ padding:.6rem .7rem; border:1px solid #ddd; border-radius:.4rem; outline:none; }
+.deal-grid{
+  display:grid; gap:1rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+.deal-card{
+  background:#fff; border-radius:.6rem; box-shadow:0 2px 8px rgba(0,0,0,.08);
+  padding:.7rem; text-align:center;
+}
+.deal-card img{ width:100%; height:160px; object-fit:contain; }
+.deal-card .title{ font-weight:600; margin:.4rem 0 .2rem; }
+.deal-card .price{ color:#1a7f37; font-weight:700; }
+.deal-card .meta{ font-size:.8rem; color:#666; }
+
+/* Full-width slider styles */
+.slider-section { width:100%; overflow:hidden; }
+.slider { width:100%; height:420px; position:relative; margin:0 auto; overflow:hidden; }
+.slides { display:flex; width:300%; height:100%; transition: margin-left 0.8s ease; }
+.slides input { display:none; }
+.slide { min-width:100%; box-sizing:border-box; }
+.slide img { width:100%; height:420px; object-fit:cover; display:block; }
+
+/* Manual nav dots */
+.navigation-manual { position:absolute; width:100%; bottom:15px; display:flex; justify-content:center; gap:10px; }
+.manual-btn { width:12px; height:12px; border-radius:50%; border:2px solid #fff; display:inline-block; cursor:pointer; transition: background 0.3s; }
+.manual-btn:hover{ background:#fff; }
+
+/* Auto nav (invisible helper) */
+.navigation-auto { display:none; }
+
+/* Radio controls to move slides */
+#radio1:checked ~ .first { margin-left:0; }
+#radio2:checked ~ .first { margin-left:-100%; }
+#radio3:checked ~ .first { margin-left:-200%; }
+
+/* Responsive */
+@media (max-width:600px){
+  .slider { height:240px; }
+  .slide img { height:240px; object-fit:cover; }
+}
