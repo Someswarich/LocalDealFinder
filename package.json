@@ -2,11 +2,10 @@
   "name": "localdealfinder",
   "version": "1.0.0",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "json-server": "^1.0.0"
+    "express": "^4.19.0"
   }
 }
