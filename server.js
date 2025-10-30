@@ -5,9 +5,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const app = express();
+
+// ✅ PORT setup (Render provides process.env.PORT)
 const PORT = process.env.PORT || 10000;
 
-// ✅ Fix for ES modules
+// ✅ Fix for ESM paths
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -15,13 +17,13 @@ const __dirname = path.dirname(__filename);
 app.use(cors());
 app.use(express.json());
 
-// ✅ Serve static files from 'public' folder
+// ✅ Serve static files from "public" folder
 app.use(express.static(path.join(__dirname, "public")));
 
 // ✅ Path to db.json
 const dbPath = path.join(__dirname, "db.json");
 
-// ✅ GET all deals
+// ✅ GET deals
 app.get("/deals", (req, res) => {
   try {
     const data = JSON.parse(fs.readFileSync(dbPath, "utf8"));
@@ -32,7 +34,7 @@ app.get("/deals", (req, res) => {
   }
 });
 
-// ✅ POST a new deal
+// ✅ POST new deal
 app.post("/deals", (req, res) => {
   try {
     const newDeal = req.body;
@@ -47,17 +49,15 @@ app.post("/deals", (req, res) => {
   }
 });
 
-// ✅ Serve db.json (for debugging)
-app.get("/db", (req, res) => {
-  res.sendFile(dbPath);
-});
+// ✅ Serve db.json (optional for debugging)
+app.get("/db", (req, res) => res.sendFile(dbPath));
 
-// ✅ Catch-all route for any other path (important for Render!)
+// ✅ Catch-all route for client-side pages (deals.html, login.html, etc.)
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// ✅ Start the server
-app.listen(PORT, () => {
+// ✅ Start server
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
